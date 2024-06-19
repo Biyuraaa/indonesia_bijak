@@ -11,7 +11,7 @@
                                         <p class="text-sm mb-0 text-capitalize font-weight-bold">Total User Terdaftar
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            1,432 user
+                                            {{$users->count()}}
                                             <span class="text-success text-sm font-weight-bolder"></span>
                                         </h5>
                                     </div>
@@ -32,11 +32,10 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Pengunjung Hari Ini</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Kandidat</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            823 guest
+                                            {{$candidates->count()}}
                                             <br>
-                                            <span class="text-success text-sm font-weight-bolder">+3%</span>
                                         </h5>
                                     </div>
                                 </div>
@@ -56,11 +55,10 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Pengguna Baru Hari Ini
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Partai
                                         </p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            +12 user <br>
-                                            <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                                            {{$parties->count()}} <br>
                                         </h5>
                                     </div>
                                 </div>
@@ -80,10 +78,9 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">User Sudah Memilih</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Blogs</p>
                                         <h5 class="font-weight-bolder mb-0">
-                                            1,033 user <br>
-                                            <span class="text-success text-sm font-weight-bolder">+5%</span>
+                                            {{$blogs->count()}} <br>
                                         </h5>
                                     </div>
                                 </div>
@@ -206,121 +203,7 @@
                 </div>
             </div>
         </div>
-        <div class="row my-4">
-            <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
-                <div class="card">
-                    <div class="card-header pb-0">
-                        <div class="row">
-                            <div class="col-lg-6 col-7">
-                                <h6>Data User</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body px-0 pb-2">
-                        <div class="card text-center mt-3">
-                                <div class="col-md-6 mx-auto">
-                                    <form method="POST">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="tcari" class="form-control"
-                                                placeholder="Masukkan Kata Kunci">
-                                            <button class="btn btn-primary" name="bcari" type="submit">Cari</button>
-                                            <button class="btn btn-danger" name="breset" type="submit">Reset</button>
-                                        </div>
-                                    </form>
-                                </div>
 
-                                <table class="table table-dark table-hover p-3">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">NIK</th>
-                                            <th scope="col">Nama</th>
-                                            <th scope="col">Tempat Lahir</th>
-                                            <th scope="col">Tanggal Lahir</th>
-                                            <th scope="col">Jenis Kelamin</th>
-                                            <th scope="col">Agama</th>
-                                            <th scope="col">Alamat</th>
-                                            <th scope="col">Nomor Telepon</th>
-                                            <th scope="col">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($users as $user)
-
-                                            <tr>
-                                                <td>
-                                                    {{$user->nik}}
-                                                </td>
-                                                <td>
-                                                    {{$user->name}}
-                                                </td>
-                                                <td>
-                                                    {{$user->place_of_birth}}
-                                                </td>
-                                                <td>
-                                                    {{$user->date_of_birth}}
-                                                </td>
-                                                <td>
-                                                    {{$user->gender}}
-                                                </td>
-                                                <td>
-                                                    {{$user->religion}}
-                                                </td>
-                                                <td>
-                                                    {{$user->address}}
-                                                </td>
-
-                                                <td>
-                                                    {{$user->phone}}
-                                                </td>
-
-                                                <td>
-                                                    <a href="{{url('dashboard/edit/'.$user->id)}}"
-                                                        class="btn btn-warning">Edit</a>
-                                                    <a href="{{url('dashboard/hapus/'.$user->id)}}"
-                                                        class="btn btn-danger">Hapus</a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                </table>
-                            </div>
-                            <div class="card-footer text-muted">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <footer class="footer pt-3  ">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6 mb-lg-0 mb-4">
-
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link text-muted"
-                                    target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
-                                    target="_blank">About
-                                    Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
-                                    target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                                    target="_blank">License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
         </div>
     </main>
     <div class="fixed-plugin">

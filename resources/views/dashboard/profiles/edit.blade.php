@@ -26,10 +26,10 @@
                                         <div class="card-body text-center">
                                             @if (Auth::user()->photo)
                                             <img id="profile-image" class="img-account-profile rounded-circle mb-2 max-w-6"
-                                                src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Profile Image">
+                                                src="{{ asset('assets/images/users/' . Auth::user()->photo) }}" alt="Profile Image">
                                             @else
                                             <img id="profile-image" class="img-account-profile rounded-circle mb-2 max-w-6"
-                                                src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Default Image">
+                                                src="{{asset('assets/images/users/default.png')}}" alt="Profile Image">
                                             @endif
                                             <input type="file" id="photo" name="photo" class="form-control">
                                         </div>

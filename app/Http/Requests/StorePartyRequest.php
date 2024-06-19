@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePartyRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StorePartyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::user()->role == 'admin';
     }
 
     /**
@@ -22,7 +23,11 @@ class StorePartyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'logo' => ['required', 'image', 'max:2048'],
+            'history' => ['nullable', 'string'],
+            'vision' => ['nullable', 'string'],
+            'mission' => ['nullable', 'string'],
         ];
     }
 }

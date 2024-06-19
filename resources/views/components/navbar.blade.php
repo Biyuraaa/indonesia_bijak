@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+a<nav class="navbar navbar-expand-lg navbar-light fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{{route(Auth::user() ? 'dashboard' : 'welcome')}}">
             <img src="{{asset('assets/images/logo.png')}}" alt="Logo" width="150" height="67" class="d-inline-block align-top" style="border-radius: 10px;">
@@ -16,15 +16,24 @@
                     @endif
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('parties.index')}}">Partai</a>
+                    <a class="nav-link" href="{{route('parties')}}">Partai</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('candidates.index')}}">Kandidat</a>
+                    <a class="nav-link" href="{{route('candidates')}}">Kandidat</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('blogs.index')}}">Blog</a>
+                </li>
+
                 @if (Auth::user())
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('votes.index')}}">Voting</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('profiles.index')}}">Profile</a>
+                </li>
+                
+                
                 @endif
                 <li class="nav-item">
                     @if (Auth::check())

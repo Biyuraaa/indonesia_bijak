@@ -25,7 +25,7 @@ class ProfileUpdateRequest extends FormRequest
             'religion' => ['nullable', 'string'],
             'place_of_birth' => ['nullable', 'string', 'max:255'],
             'date_of_birth' => ['nullable', 'date'],
-            'photo' => ['nullable', 'image', 'max:2048'], // Added photo validation
+            'photo' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

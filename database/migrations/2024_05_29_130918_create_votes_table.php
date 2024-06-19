@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id')->nullable(false);
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('candidate_id')->nullable();
+            $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->unsignedBigInteger('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-
             $table->unique(['category_id', 'user_id']);
-
-            $table->date('voted_at')->nullable(false);
+            $table->date('voted_at')->nullable(false)->default(now());
         });
     }
 

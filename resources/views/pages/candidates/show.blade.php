@@ -18,10 +18,6 @@
                         <div class="col-md-8">{{ $candidate->category->name }}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4"><strong>Election:</strong></div>
-                        <div class="col-md-8">{{ $candidate->election->name }}</div>
-                    </div>
-                    <div class="row mb-3">
                         <div class="col-md-4"><strong>Vision:</strong></div>
                         <div class="col-md-8">{{ $candidate->vision }}</div>
                     </div>

@@ -18,7 +18,7 @@
                         @endif
                         <div class="card-body text-center">
                             <h5 class="card-title">{{$candidate->name}}</h5>
-                            <a class="learn-more" href="{{route('candidates.show', ['candidate' => $candidate])}}">Pelajari Selengkapnya →</a>
+                            <a class="learn-more" href="{{route('candidate', ['candidate' => $candidate])}}">Pelajari Selengkapnya →</a>
                         </div>
                     </div>
                 </div>

@@ -21,7 +21,6 @@ class PartyFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'logo' => $this->faker->imageUrl(),
             'history' => $this->faker->text,
             'vision' => $this->faker->text,
             'mission' => $this->faker->text,

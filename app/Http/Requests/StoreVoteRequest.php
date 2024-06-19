@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreVoteRequest extends FormRequest
 {
+    protected $model = 'App\Models\Vote';
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,6 +26,8 @@ class StoreVoteRequest extends FormRequest
         return [
             'category_id' => 'required|exists:categories,id',
             'user_id' => 'required|exists:users,id',
+            'candidate_id' => 'required|exists:candidates,id',
+            'voted_at' => 'required|date',
         ];
     }
 }

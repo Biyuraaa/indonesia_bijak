@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Party;
+use App\Models\Candidate;
+use App\Models\Blog;
 
 class DashboardController extends Controller
 {
@@ -16,7 +19,11 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            return view('dashboard.index', ['users' => User::all()]);
+            $users = User::all();
+            $parties = Party::all();
+            $candidates = Candidate::all();
+            $blogs = Blog::all();
+            return view('dashboard.index', compact('users', 'parties', 'candidates', 'blogs'));
         } else {
             return view('welcome');
         }

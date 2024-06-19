@@ -25,12 +25,12 @@
                     <form method="POST" action="{{ route('login') }}" class="register-form" id="login-form">
                         @csrf
                         <div class="form-group">
-                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" id="your_name" placeholder="Your Username" required />
+                            <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" name="email" id="email" placeholder="Your Username" required />
                         </div>
                         <div class="form-group">
-                            <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="your_pass" placeholder="Password" required />
+                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                            <input type="password" name="password" id="password" placeholder="Password" required />
                         </div>
                         <div class="form-group">
                             <input type="checkbox" name="remember" id="remember-me" class="agree-term" />
@@ -41,9 +41,13 @@
                         </div>
                         @if ($errors->any())
                             <div class="form-group">
-                                <p class="error-message">
-                                    {{ $errors->first('username') }}
-                                </p>
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         @endif
                     </form>

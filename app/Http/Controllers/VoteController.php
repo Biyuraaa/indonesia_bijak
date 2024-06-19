@@ -42,7 +42,8 @@ class VoteController extends Controller
     public function show(Category $category)
     {
         $candidates = $category->candidates;
-        return view('pages.votes.show', compact('candidates'));
+        $category = $category;
+        return view('pages.votes.show', compact('candidates', 'category'));
     }
 
     /**

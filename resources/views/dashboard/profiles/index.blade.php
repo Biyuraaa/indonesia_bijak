@@ -22,10 +22,10 @@
                                   <div class="card-body text-center">
                                     @if (Auth::user()->photo)
                                     <img class="img-account-profile rounded-circle mb-2 max-w-6"
-                                        src="{{ asset('storage/' . Auth::user()->photo) }}" alt>
+                                        src="{{ asset('assets/images/users/' . Auth::user()->photo) }}" alt>
                                     @else
                                     <img class="img-account-profile rounded-circle mb-2 max-w-6"
-                                        src="http://bootdey.com/img/Content/avatar/avatar1.png" alt>
+                                        src="{{asset('assets/images/users/default.png')}}" alt>
                                     @endif
                                   </div>
                                   <div class="card-body">
@@ -49,8 +49,8 @@
                                         <tr>
                                             <th>Jenis Kelamin</th>
                                             <td>{{ Auth::user()->gender == 'male' ? 'Laki-laki' : (Auth::user()->gender == 'female' ? 'Perempuan' : '-') }}
-
-                                            </td>                                        </tr>
+                                            </td>                                        
+                                        </tr>
                                         <tr>
                                             <th>Agama</th>
                                             <td>

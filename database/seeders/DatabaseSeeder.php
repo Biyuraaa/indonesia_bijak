@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Blog;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Candidate;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Election;
 use App\Models\ElectionParticipation;
 use App\Models\Party;
@@ -22,10 +24,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        Category::factory(4)->create();
-        Party::factory(8)->create();
-        Program::factory(40)->create();
-        Candidate::factory(20)->create();
-        Prestation::factory(60)->create();
+        // Category::factory(4)->create();
+        // Party::factory(8)->create();
+        // Program::factory(40)->create();
+        // Candidate::factory(20)->create();
+        // Prestation::factory(60)->create();
+        // Blog::factory(10)->create();
+        Comment::factory(30)->create();
     }
 }

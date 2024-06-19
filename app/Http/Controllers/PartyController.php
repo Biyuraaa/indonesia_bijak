@@ -6,6 +6,7 @@ use App\Models\Party;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePartyRequest;
 use App\Http\Requests\UpdatePartyRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PartyController extends Controller
 {
@@ -16,7 +17,11 @@ class PartyController extends Controller
     {
         //
         $parties = Party::all();
-        return view('pages.parties.index', compact('parties'));
+        if (Auth::user()->role == 'admin') {
+            return view('dashboard.parties.index', compact('parties'));
+        } else {
+            return view('pages.parties.index', compact('parties'));
+        }
     }
 
     /**
@@ -24,7 +29,7 @@ class PartyController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.parties.create');
     }
 
     /**
@@ -32,7 +37,22 @@ class PartyController extends Controller
      */
     public function store(StorePartyRequest $request)
     {
-        //
+        $request->validated();
+        $image_name = null;
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $image_name = $request->name . '_' . time() . '.' . $image->extension();
+            $image->move(public_path('assets/images/parties/'), $image_name);
+        }
+        Party::create([
+            'name' => $request->name,
+            'logo' => $image_name,
+            'history' => $request->history,
+            'vision' => $request->vision,
+            'mission' => $request->mission,
+        ]);
+
+        return redirect()->route('parties.index')->with('success', 'Party created successfully');
     }
 
     /**
@@ -50,7 +70,7 @@ class PartyController extends Controller
      */
     public function edit(Party $party)
     {
-        //
+        return view('dashboard.parties.edit', compact('party'));
     }
 
     /**
@@ -58,7 +78,26 @@ class PartyController extends Controller
      */
     public function update(UpdatePartyRequest $request, Party $party)
     {
-        //
+        $request->validated();
+        $image_name = $party->logo;
+        if ($request->hasFile('logo')) {
+            $oldImagePath = public_path('assets/images/parties/' . $party->logo);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+            $image = $request->file('logo');
+            $image_name = $request->name . '_' . time() . '.' . $image->extension();
+            $image->move(public_path('assets/images/parties/'), $image_name);
+        }
+        $party->update([
+            'name' => $request->name,
+            'logo' => $image_name,
+            'history' => $request->history,
+            'vision' => $request->vision,
+            'mission' => $request->mission,
+        ]);
+
+        return redirect()->route('parties.index')->with('success', 'Party updated successfully');
     }
 
     /**
@@ -66,6 +105,14 @@ class PartyController extends Controller
      */
     public function destroy(Party $party)
     {
-        //
+        if ($party->logo) {
+            $imagePath = public_path('assets/images/parties/' . $party->logo);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $party->delete();
+        return redirect()->route('parties.index')->with('success', 'Party deleted successfully');
     }
 }

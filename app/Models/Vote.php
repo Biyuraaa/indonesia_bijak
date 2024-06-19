@@ -13,7 +13,7 @@ class Vote extends Model
     public $timestamps = false;
 
 
-    protected $fillable = ['user_id', 'category_id', 'voted_at'];
+    protected $fillable = ['user_id', 'category_id', 'voted_at', 'candidate_id'];
 
     public function category(): BelongsTo
     {
@@ -23,5 +23,10 @@ class Vote extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function candidate(): BelongsTo
+    {
+        return $this->belongsTo(Candidate::class);
     }
 }

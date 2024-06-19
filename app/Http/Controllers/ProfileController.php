@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,14 +15,22 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('dashboard.profiles.index');
+        if (Auth::user()->role == 'admin') {
+            return view('dashboard.profiles.index');
+        } else {
+            return view('pages.profiles.index');
+        }
     }
     /**
      * Display the user's profile form.
      */
     public function edit(): View
     {
-        return view('dashboard.profiles.edit');
+        if (Auth::user()->role == 'admin') {
+            return view('dashboard.profiles.edit');
+        } else {
+            return view('pages.profiles.edit');
+        }
     }
 
     /**
@@ -29,37 +38,25 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        // Handle photo upload
+        $user = $request->user();
+        $user->fill($request->validated());
+
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $filename = $request->user()->name . '.' . $photo->getClientOriginalExtension();
-
-            // Delete old photo if it exists
-            if ($request->user()->photo) {
-                $oldPhotoPath = public_path('images/' . $request->user()->photo);
-                if (file_exists($oldPhotoPath)) {
-                    @unlink($oldPhotoPath);
-                }
+            $oldImagePath = public_path('assets/images/users/' . Auth::user()->photo);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
             }
-
-            // Move the new photo to the public/images directory
-            $photo->move(public_path('images'), $filename);
-
-            // Update the photo in the database
-            $request->user()->photo = $filename;
-            $request->user()->save();
+            $photo = $request->file('photo');
+            $image_name = $user->name . '_' . time() . '.' . $photo->extension();
+            $photo->move(public_path('assets/images/users/'), $image_name);
+            $user->photo = $image_name;
         }
 
-        // Fill the user model with validated data
-        $request->user()->fill($request->validated());
-
-        // Check if email has changed
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        // Save the updated user model
-        $request->user()->save();
+        $user->save();
 
         return Redirect::route('profiles.index')->with('status', 'profile-updated');
     }

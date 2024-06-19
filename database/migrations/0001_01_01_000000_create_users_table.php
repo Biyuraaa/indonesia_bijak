@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name')->nullable(false);
             $table->string('nik')->unique();
             $table->string('photo')->nullable();
-            $table->enum('role', ['admin', 'voter']);
+            $table->enum('role', ['admin', 'voter'])->default('voter');
             $table->string('place_of_birth')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
-            $table->enum('religion', ['islam', 'christian', 'catholic', 'hindu', 'buddha', 'other'])->nullable();
+            $table->enum('religion', ['islam', 'christian', 'catholic', 'hindu', 'buddha', 'confucian', 'other'])->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
